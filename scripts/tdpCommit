@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]
+then
+  echo "Usage: tdpCommit \"Commit message\""
+  exit 1
+fi
+
+for i in ./* ; do
+  if [ -d "$i" ]; then
+    directory=$(basename $i)
+    echo "=================================================================="
+    echo $directory
+    cd $directory
+    git add -A
+    git commit -am "$1"
+    git push
+    cd ..
+  fi
+done
+echo "=================================================================="
