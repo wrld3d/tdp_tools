@@ -1,13 +1,3 @@
 #!/bin/bash
+find . -mindepth 1 -maxdepth 1 -printf '%p\n' -type d -exec git -C {} status --short \;
 
-for i in ./* ; do
-  if [ -d "$i" ]; then
-    directory=$(basename $i)
-    echo "=================================================================="
-    echo $directory
-    cd $directory
-    git status
-    cd ..
-  fi
-done
-echo "=================================================================="

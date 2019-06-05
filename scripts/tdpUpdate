@@ -19,14 +19,10 @@ done
 
 if [ -z "$NOPULL" ]; then
   #---- Update all modules ----
-  for i in ./* ; do
-    if [ -d "$i" ]; then
-      directory=$(basename $i)
-      cd $directory
-      git pull
-      cd ..
-    fi
-  done
+  readonly dir_count=$(find . -maxdepth 1 -type d | wc -l)
+  
+  echo "Updating $dir_count repositories ..."
+  ls -d */ | xargs -P10 -I{} git -C {} pull
 fi
 
 #---- Get any URL translation ----
